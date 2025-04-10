@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aser Alemayehu | Video Creator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    .progress.video-editing {
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
+}
+.progress.animation {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+    .modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto; 
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 800px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+    #skills {
+  background: #f9fafb;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #skills {
+  background: #0f172a;
+}
+.skills-container {
+  max-width: 800px;
+  margin: 40px auto 0;
+  text-align: left;
+}
+.skill {
+  margin-bottom: 25px;
+}
+.skill p {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.skill-bar {
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 16px;
+}
+.skill-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 12px 0 0 12px;
+  transition: width 1s ease;
+}
+
+    #stats {
+  background: #f0f9ff;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #stats {
+  background: #1e3a8a;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.stat {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+}
+body.dark-mode .stat {
+  background: #334155;
+  color: #f9fafb;
+}
+.counter {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+    #clients {
+  background: #fff;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #clients {
+  background: #0f172a;
+}
+.client-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+.client-logos img {
+  max-height: 60px;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.client-logos img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+    #resume {
+  background: #f1f5f9;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #resume {
+  background: #1e293b;
+}
+.resume-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.resume-btn:hover {
+  background-color: var(--secondary);
+}
+
+    #faq {
+  background: #e0f2fe;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #faq {
+  background: #0f172a;
+}
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+.faq-item {
+  border-bottom: 1px solid #cbd5e1;
+  margin-bottom: 15px;
+}
+.faq-question {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  text-align: left;
+  padding: 15px 0;
+  cursor: pointer;
+  color: var(--text-light);
+}
+body.dark-mode .faq-question {
+  color: var(--text-dark);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.faq-item.open .faq-answer {
+  max-height: 200px;
+}
+
+    #testimonials {
+  background: #f9fafb;
+  padding: 60px 20px;
+  text-align: center;
+}
+body.dark-mode #testimonials {
+  background: #1e293b;
+}
+.testimonial-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.testimonial {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  font-style: italic;
+  position: relative;
+}
+body.dark-mode .testimonial {
+  background: #334155;
+  color: #f9fafb;
+}
+.testimonial::before {
+  content: "“";
+  font-size: 60px;
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  color: var(--primary);
+  opacity: 0.1;
+}
+.testimonial h4 {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+    :root {
+      --bg-light: #f4f6f9;
+      --bg-dark: #1f2937;
+      --text-light: #2c3e50;
+      --text-dark: #f9fafb;
+      --primary: #4f46e5;
+      --secondary: #3b82f6;
+    }
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    header {
+      padding: 100px 20px 50px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+    }
+    header h1 {
+      font-size: 56px;
+      margin: 0;
+    }
+    header p {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+    iframe {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .project {
+      margin-bottom: 40px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    body.dark-mode .project {
+      background: #374151;
+    }
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+    .project img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .project h3 {
+      margin-top: 15px;
+      font-size: 24px;
+    }
+    .project p a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    .contact {
+      text-align: center;
+      background: #e0e7ff;
+      padding: 60px 20px;
+      border-top: 3px solid var(--primary);
+    }
+    body.dark-mode .contact {
+      background: #1e293b;
+    }
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      color: #1e40af;
+      border: 2px solid var(--primary);
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .contact a:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    body.dark-mode .toggle-btn {
+      background: #374151;
+      color: #f9fafb;
+    }
+    .parallax {
+      background-image: url('https://i.imgur.com/zUwKW6Y.jpg');
+      height: 500px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Progress bar styling */
+    .skills {
+      margin: 40px 0;
+    }
+    .skill {
+      margin-bottom: 20px;
+    }
+    .skill-name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    /* ======== NEW PROGRESS BAR CODE ======== */
+.progress-bar {
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 20px;
+}
+
+.progress {
+  height: 100%;
+  width: 0;
+  transition: width 1s ease-in-out;
+  position: relative;
+  text-align: right;
+  padding-right: 10px;
+  color: white;
+  font-weight: 500;
+}
+
+.progress::after {
+  content: attr(data-percent) "%";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+}
+
+/* Gradient Colors */
+.progress.video-editing { background: linear-gradient(90deg, #4f46e5, #6366f1); }
+.progress.animation { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.progress.storytelling { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.progress.color-grading { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.progress.sound-design { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+  </style>
+  
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <header>
+    <h1>Aser Alemayehu</h1>
+    <p>Video Creator | Editor | Storyteller</p>
+    <div class="video-container">
+      <iframe 
+        width="560" 
+        height="315" 
+        src="https://www.youtube.com/embed/W5eEub9-KaI" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+        Your browser does not support the video tag.
+      </iframe>
+    </div>
+    <p class="video-caption">THE MUSIC VIDEO PROJECT WHERE I WAS THE MAIN ASSISTANT.</p>
+  </header>
+
+  <div class="parallax"></div> <!-- Parallax section -->
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Greetings. I’m Aser Alemayehu, a seasoned Visual Storyteller & Digital Content Architect with 4+ years of expertise in cinematic editing, narrative design, and dynamic motion graphics. I don’t just create videos—I engineer audience-centric visual ecosystems that captivate audiences and drive meaningful engagement.
+
+      Specializing in the alchemy of story-driven content, my work bridges the gap between brand vision and viewer emotion, leveraging cutting-edge techniques in color grading, soundscaping, and kinetic typography.
+      
+      My mission: To transform raw concepts into visually stunning narratives that elevate brands, spark dialogue, and resonate across digital platforms. Whether crafting viral social shorts, brand documentaries, or AI-enhanced multimedia campaigns, I deliver content that doesn’t just perform—it transforms.
+      
+      Let’s collaborate to craft visual experiences that don’t just capture attention – they create lasting impact</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      
+      <!-- Video Editing -->
+      <div class="skill">
+        <div class="skill-name">Video Editing</div>
+        <div class="progress-bar">
+          <div class="progress video-editing" data-percent="90">0%</div>
+        </div>
+      </div>
+  
+      <!-- Animation -->
+      <div class="skill">
+        <div class="skill-name">Animation</div>
+        <div class="progress-bar">
+          <div class="progress animation" data-percent="75">0%</div>
+        </div>
+      </div>
+  
+      <!-- Storytelling -->
+      <div class="skill">
+        <div class="skill-name">Storytelling</div>
+        <div class="progress-bar">
+          <div class="progress storytelling" data-percent="85">0%</div>
+        </div>
+      </div>
+  
+      <!-- Color Grading -->
+      <div class="skill">
+        <div class="skill-name">Color Grading</div>
+        <div class="progress-bar">
+          <div class="progress color-grading" data-percent="80">0%</div>
+        </div>
+      </div>
+  
+      <!-- Sound Design -->
+      <div class="skill">
+        <div class="skill-name">Sound Design</div>
+        <div class="progress-bar">
+          <div class="progress sound-design" data-percent="70">0%</div>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+  <section id="my-work">
+    <h2>My Work</h2>
+    <!-- Project 1 -->
+    <div class="project" onclick="openModal('modal1')">
+      
+      <h3>High-Protein Pancake Recipe: Perfect Pre & Post-Workout Meal with Easy-to-Find Ingredients | Macro Breakdown</h3>
+      <p> I was responsible for the complete production process, including scripting, editing, filming, and sound management. I ensured that each element was meticulously executed to align with the intended vision, delivering high-quality, engaging content with optimized audio. As a result of this strategic and detail-driven approach, the final product didn’t just resonate—it went viral, amassing over 1 million views and capturing the attention of a massive audience, proving the power of intentional storytelling and technical precision. <a href="https://www.instagram.com/reel/C1JTfR3tcoZ/?igsh=OXJqYTMwaHEwODdw" target="_blank">Watch Video</a></p>
+    </div>
+    <!-- Project 2 -->
+    <div class="project" onclick="openModal('modal2')">
+      
+      <h3>Vegan Protein Powerhouse Recipe: Flavor-Filled Meal with 789 Calories & 40g Protein | Macro Breakdown</h3>
+      <p>I led the entire production process, managing everything from scripting and filming to editing and sound design. This comprehensive approach allowed me to ensure every detail met the highest standards, delivering polished, professional content. The experience I bring to the table is rooted in a deep understanding of how to create compelling videos that resonate with audiences, combining technical expertise and creative vision for maximum impact <a href="https://www.instagram.com/reel/C4ilZmPo5lt/?igsh=MWh4MmlpZ29ic2Jl" target="_blank">Watch Video</a></p>
+    </div>
+    <!--Project 3-->
+    <div class="project" onclick="openModal('modal3')">
+      <h3>High-Calorie Protein Pasta Masterclass: 20-Min Recipe Breakdown | Multi-Cam Edit</h3>
+      <p>As lead editor, I engineered this 1.2M-view viral food tutorial using advanced multi-camera sequencing and dynamic macro animations. Leveraged DaVinci Resolve's neural engine for seamless ISO synchronization and implemented kinetic typography to visualize nutritional data. The final cut features ASMR-enhanced soundscaping and precision color grading to maximize viewer retention through critical cooking stages.<br><br>
+      
+      <strong>Key Metrics:</strong><br>
+      📈 287% engagement rate · 🎬 92% retention through final CTA<br>
+      <a href="https://www.instagram.com/reel/C1PYo8kNiXY/?igsh=MTdubnJseTRoN2Rzcg%3D%3D" target="_blank">Analyze Edit</a></p>
+    </div>
+    
+  </section>
+
+  <!-- Modal 1 -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal1')">&times;</span>
+      <h3>Project Title 1 - Details</h3>
+      <p>Detailed information about the project goes here.</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/project1" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Modal 2 -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span>
+      <h3>Project Title 2 - Details</h3>
+      <p>Detailed information about the project goes here.</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/project2" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <!-- Modal 3 -->
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal3')">&times;</span>
+    <h3>Editing Architecture: Protein Pasta Breakdown</h3>
+    <p>This project demanded frame-accurate synchronization of 3 camera angles (Sony A7IV, GoPro Hero11, iPhone 14 Pro) with variable frame rates. Developed custom LUTs to maintain color consistency across mixed lighting conditions and implemented fluid morph cuts to compress 42 minutes of raw footage into 58 seconds without perceptual jumps.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+   
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question">What kind of videos do you specialize in?</button>
+        <div class="faq-answer">
+          <p>I specialize in cinematic storytelling, promotional videos, vlogs, and short-form content for social media.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What tools do you use?</button>
+        <div class="faq-answer">
+          <p>I primarily use Adobe Premiere Pro, After Effects, and DaVinci Resolve depending on the project needs.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What’s your typical turnaround time?</button>
+        <div class="faq-answer">
+          <p>Turnaround varies based on the project, but typically ranges from 2 to 7 days.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="testimonials">
+    <h2>What People Say</h2>
+    <div class="testimonial-container">
+      <div class="testimonial">
+        <p>"An absolute pro. Took our raw footage and turned it into a cinematic masterpiece."</p>
+        <h4>– MATIWOS SOLOMON (WEDDING PROJECT)</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Incredible attention to detail and storytelling. Exceeded our expectations!"</p>
+        <h4>– YOSEF TESFAYE, SOCIAL MEDIA INFLUENCER</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Fast, efficient, and super creative. Highly recommend working together."</p>
+        <h4>– DAGMAWI WUBE, YouTuber, LYRICAL ARTIST</h4>
+      </div>
+    </div>
+  </section>
+  
+  <section id="stats">
+    <h2>My Achievements</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="counter" data-target="75">0</div>
+        <p>Projects Completed</p>
+      </div>
+      <div class="stat">
+        <div class="counter" data-target="50">0</div>
+        <p>Happy Clients</p>
+      </div>
+      <div class="stat">
+        <div class="counter" data-target="1000000">0</div>
+        <p>Video Views</p>
+      </div>
+      <div class="stat">
+        <div class="counter" data-target="4">0</div>
+        <p>Years Experience</p>
+      </div>
+    </div>
+  </section>
+  <section id="skills">
+    <h2>My Skillset</h2>
+    <div class="skills-container">
+      <div class="skill">
+        <p>Video Editing</p>
+        <div class="skill-bar">
+          <div class="progress video-editing" data-percent="95">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <p>Motion Graphics</p>
+        <div class="skill-bar">
+          <div class="progress animation" data-percent="85">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <p>Storytelling</p>
+        <div class="skill-bar">
+          <div class="progress storytelling" data-percent="90">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <p>Color Grading</p>
+        <div class="skill-bar">
+          <div class="progress color-grading" data-percent="80">0%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section id="resume">
+    <h2>Resume</h2>
+    <p>You can view or download my full resume below to learn more about my experience and skills.</p>
+    <a href="https://docs.google.com/document/d/1V46cKmXTjD44krf8fkUMeAoMBrNkxpTH/edit?usp=drive_link&ouid=114369754109193227927&rtpof=true&sd=true" download class="resume-btn">Download Resume</a>
+  </section>
+  
+  <section class="contact">
+    <h2>Contact Me</h2>
+    <p>Got a project? Let’s talk!</p>
+    <a href="mailto:youremail@example.com">Email Me</a>
+    
+  </section>
+  <script>
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  
+    // Modal Functions
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = "block";
+    }
+  
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+  
+    // Close modal on outside click
+    window.addEventListener('click', (event) => {
+      if (event.target.classList.contains('modal')) {
+        closeModal(event.target.id);
+      }
+    });
+  
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        button.parentElement.classList.toggle('open');
+      });
+    });
+  
+    // Animated Counters
+    function animateCounters() {
+  const counters = document.querySelectorAll('.counter');
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = +counter.dataset.target;
+        let count = 0;
+        const speed = 200;
+        const increment = target / speed;
+
+        const updateCount = () => {
+          count += increment;
+          if (count < target) {
+            counter.innerText = Math.ceil(count);
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.innerText = target.toLocaleString();
+          }
+        };
+
+        updateCount();
+        observer.unobserve(counter); // Only trigger once
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => {
+    counter.innerText = '0'; // Reset initial state
+    observer.observe(counter);
+  });
+}
+
+  
+    // Progress Bars Animation with Percent Counter
+function animateProgressBars() {
+  const progressBars = document.querySelectorAll('.progress');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const targetPercent = +bar.dataset.percent;
+
+        // Animate width
+        bar.style.width = targetPercent + '%';
+
+        // Animate percentage text
+        let current = 0;
+        const increment = targetPercent / 50; // smoother counter
+        const interval = setInterval(() => {
+          current += increment;
+          if (current >= targetPercent) {
+            current = targetPercent;
+            clearInterval(interval);
+          }
+          bar.textContent = Math.round(current) + '%';
+        }, 15);
+
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  progressBars.forEach(bar => {
+    bar.style.width = '0';        // Reset initial width
+    bar.textContent = '0%';       // Reset initial text
+    observer.observe(bar);
+  });
+}
+
+  
+    // Initialize Everything
+    window.addEventListener('DOMContentLoaded', () => {
+      animateCounters();
+      animateProgressBars();
+    });
+  </script>
+  
+  
+</body>
+</html>
